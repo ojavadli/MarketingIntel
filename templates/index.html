@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Intelligence Agent</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+            text-align: center;
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 18px;
+        }
+        
+        .input-section {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            margin-bottom: 30px;
+        }
+        
+        .input-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 20px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            font-size: 15px;
+            font-weight: 500;
+            color: #424245;
+            margin-bottom: 8px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .button-primary {
+            background: #1d1d1f;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .button-primary:hover {
+            background: #424245;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        
+        .button-primary:disabled {
+            background: #8e8e93;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+        }
+        
+        .pipeline {
+            background: white;
+            padding: 24px;
+            border-radius: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .pipeline h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1d1d1f;
+        }
+        
+        .step {
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+        
+        .step.success { border-left-color: #34c759; }
+        .step.running { border-left-color: #007aff; animation: pulse 1.5s infinite; }
+        .step.error { border-left-color: #ff3b30; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .step-name {
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 4px;
+        }
+        
+        .step-desc {
+            font-size: 13px;
+            color: #8e8e93;
+            margin-bottom: 8px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge-pending { background: #f0f0f0; color: #8e8e93; }
+        .badge-running { background: #007aff; color: white; }
+        .badge-success { background: #34c759; color: white; }
+        .badge-error { background: #ff3b30; color: white; }
+        
+        .output {
+            background: white;
+            padding: 24px;
+            border-radius: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .output h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1d1d1f;
+        }
+        
+        #report-content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #1d1d1f;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #8e8e93;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Marketing Intelligence Agent</h1>
+            <p>AI-powered insights from Reddit discussions</p>
+        </div>
+        
+        <div class="input-section">
+            <h2>Business Profile</h2>
+            <div class="input-group">
+                <label>Enter Business (Company, @Instagram, or Website)</label>
+                <input type="text" id="businessInput" placeholder="Nike, @tesla, or https://notion.so">
+            </div>
+            <button class="button-primary" onclick="runAnalysis()" id="runButton">
+                ▶️ Generate Intelligence Report
+            </button>
+        </div>
+        
+        <div class="grid">
+            <div class="pipeline">
+                <h3>Execution Pipeline</h3>
+                <div id="pipeline-steps"></div>
+            </div>
+            
+            <div class="output">
+                <h3>Intelligence Report</h3>
+                <div id="report-content" class="loading">
+                    Enter a business and click "Generate" to begin...
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const steps = [
+            {id: 'profile_extraction', name: 'Profile Extraction', desc: 'Research business using Tavily'},
+            {id: 'profile_analyzer', name: 'Profile Analyzer', desc: 'Identify target subreddits'},
+            {id: 'trend_scraper', name: 'Trend Scraper', desc: 'Scrape Reddit discussions'},
+            {id: 'ranking', name: 'Ranking Agent', desc: 'Score by relevance'},
+            {id: 'report', name: 'Report Generator', desc: 'Synthesize insights'},
+            {id: 'validator', name: 'Validator', desc: 'Verify groundedness'},
+            {id: 'summarizer', name: 'Summarizer', desc: 'Polish output'}
+        ];
+        
+        function updatePipeline(statuses = {}) {
+            const html = steps.map((step, i) => {
+                const status = statuses[step.id] || 'pending';
+                const badgeClass = `badge-${status}`;
+                const badgeText = {
+                    pending: '○ Pending',
+                    running: '⏳ Running',
+                    success: '✓ Done',
+                    error: '✗ Error'
+                }[status];
+                
+                return `
+                    <div class="step ${status}">
+                        <div class="step-name">${i + 1}. ${step.name}</div>
+                        <div class="step-desc">${step.desc}</div>
+                        <span class="badge ${badgeClass}">${badgeText}</span>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('pipeline-steps').innerHTML = html;
+        }
+        
+        async function runAnalysis() {
+            const business = document.getElementById('businessInput').value;
+            if (!business) {
+                alert('Please enter a business name');
+                return;
+            }
+            
+            const button = document.getElementById('runButton');
+            button.disabled = true;
+            button.textContent = '⏳ Analyzing...';
+            
+            document.getElementById('report-content').innerHTML = '<div class="loading">🔄 Running agents...</div>';
+            
+            try {
+                const response = await fetch('/analyze', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({business_input: business})
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('report-content').innerHTML = `<pre>${JSON.stringify(data.results, null, 2)}</pre>`;
+                    updatePipeline({profile_extraction: 'success'});
+                } else {
+                    document.getElementById('report-content').innerHTML = `<div style="color: #ff3b30;">Error: ${data.error}</div>`;
+                }
+            } catch (error) {
+                document.getElementById('report-content').innerHTML = `<div style="color: #ff3b30;">Error: ${error.message}</div>`;
+            } finally {
+                button.disabled = false;
+                button.textContent = '▶️ Generate Intelligence Report';
+            }
+        }
+        
+        // Initialize
+        updatePipeline();
+    </script>
+</body>
+</html>
+
