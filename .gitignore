@@ -1,0 +1,35 @@
+# Environment variables
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# TruLens database
+*.sqlite
+*.db
+
+# Logs
+*.log
+
+# Temp files
+*.tmp
+*.bak
+*.swp
+
