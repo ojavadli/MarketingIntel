@@ -93,7 +93,7 @@ See `ARCHITECTURE_REVISED.md` for complete specifications.
 pip install -r requirements.txt
 
 # Configure Bright Data MCP
-# Add to Cursor settings (Gear → Tools & Integrations → Add Custom MCP):
+# Add to your MCP-aware client's settings (Add Custom MCP):
 ```
 
 ```json
